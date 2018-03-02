@@ -1,6 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+const port = process.env.PORT||3000;
 
 let app = express();
 
@@ -24,7 +25,7 @@ hbs.registerHelper('scream', (text)=>{
 app.use((req, res, next)=>{
 
     var now = new Date().toString();
-    var log = req.path + req.method + req.url;
+    var log = now +req.path + req.method + req.url;
     fs.appendFile('server.log',log+'\n', (err)=>{
         if(err)
         {
@@ -51,8 +52,8 @@ app.get('/',(req, res)=>{
     });
 });
 
-app.listen(3000,()=>{
-    console.log('Server is up on Port 3000');
+app.listen(port,()=>{
+    console.log(`Server is up on Port ${port}...`);
 });
 
 app.get('/about',(req, res)=>{ 
