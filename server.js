@@ -25,7 +25,7 @@ hbs.registerHelper('scream', (text)=>{
 app.use((req, res, next)=>{
 
     var now = new Date().toString();
-    var log = now +req.path + req.method + req.url;
+    var log = now +req.path + req.method + req.baseUrl ;
     fs.appendFile('server.log',log+'\n', (err)=>{
         if(err)
         {
@@ -52,6 +52,8 @@ app.get('/',(req, res)=>{
     });
 });
 
+
+
 app.listen(port,()=>{
     console.log(`Server is up on Port ${port}...`);
 });
@@ -61,6 +63,14 @@ app.get('/about',(req, res)=>{
     res.render('about.hbs',{
         pageTitle: 'About Page'
     });
+});
+
+app.get('/project',(req, res)=>{
+
+    res.render('project.hbs',{
+        pageTitle:'Projects'
+    });
+
 });
 
 app.get('/bad',(req, res)=>{
